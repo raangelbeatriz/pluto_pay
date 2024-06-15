@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:plutus_pay/modules/login/login_module.dart';
 import 'package:plutus_pay/modules/shared/constants/app_assets.dart';
 import 'package:plutus_pay/modules/shared/constants/app_colors.dart';
 import 'package:plutus_pay/modules/shared/constants/app_text_styles.dart';
 import 'package:plutus_pay/modules/shared/presentation/atomic/molecules/filled_button_molecule.dart';
 import 'package:plutus_pay/modules/shared/presentation/atomic/molecules/textfields/text_field_molecule.dart';
 
-class LoginPage extends StatelessWidget {
-  static const String routeName = '/login-page';
-  static const String routePath = LoginModule.moduleName + routeName;
-  const LoginPage({super.key});
+class LoginTemplate extends StatelessWidget {
+  const LoginTemplate({super.key, required this.onContinueTap});
+
+  final VoidCallback onContinueTap;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: FilledButtonMolecule(
-                onTap: () {},
+                onTap: onContinueTap,
                 text: 'Comprar',
                 isEnabled: true,
               ),
