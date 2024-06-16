@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+
 import '../../../../shared/constants/app_assets.dart';
 import '../../../../shared/constants/app_colors.dart';
 import '../../../../shared/constants/app_text_styles.dart';
@@ -8,9 +9,10 @@ import '../../../../shared/presentation/atomic/molecules/filled_button_molecule.
 import '../../../../shared/presentation/atomic/molecules/textfields/text_field_molecule.dart';
 
 class LoginTemplate extends StatelessWidget {
-  const LoginTemplate({super.key, required this.onContinueTap});
+  const LoginTemplate({super.key, required this.onContinueTap, required this.isLoading});
 
   final VoidCallback onContinueTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class LoginTemplate extends StatelessWidget {
               width: double.infinity,
               child: FilledButtonMolecule(
                 onTap: onContinueTap,
+                isLoading: isLoading,
                 text: 'Comprar',
                 isEnabled: true,
               ),

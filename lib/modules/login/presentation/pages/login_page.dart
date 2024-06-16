@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../shared/utils/status.dart';
 import '../../login_module.dart';
 import '../atomic/templates/login_template.dart';
 import '../cubits/login_cubit.dart';
@@ -24,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, state) {
         return LoginTemplate(
           onContinueTap: cubit.onContinueTap,
+          isLoading: state.status.isLoading,
         );
       },
     );

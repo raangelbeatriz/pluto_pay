@@ -10,5 +10,9 @@ class AppNetworkImpl implements AppNetwork {
   @override
   String get baseUrl => environment.baseUrl;
 
-  String get signIn => '';
+  String get signIn => '/sign-in';
+
+  String get getPaymentsDetails => '/get-payments-details';
+
+  String get getCards => '/get-register-cards';
 }
