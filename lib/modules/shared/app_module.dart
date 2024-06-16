@@ -1,15 +1,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:plutus_pay/modules/login/login_module.dart';
-import 'package:plutus_pay/modules/payment/payment_module.dart';
-import 'package:plutus_pay/modules/shared/configs/enviroment.dart';
-import 'package:plutus_pay/modules/shared/data/app_network_impl.dart';
-import 'package:plutus_pay/modules/shared/data/mock/mock_interceptor.dart';
-import 'package:plutus_pay/modules/shared/shared_navigator.dart';
 
 import '../../mock/plutus_mock_server.dart';
+import '../login/login_module.dart';
+import '../payment/payment_module.dart';
+import 'configs/enviroment.dart';
 import 'data/app_network.dart';
+import 'data/app_network_impl.dart';
 import 'data/dio/dio_client_impl.dart';
+import 'data/mock/mock_interceptor.dart';
 import 'data/mock/mock_server.dart';
+import 'shared_navigator.dart';
 
 class AppModule extends Module {
   AppModule(this.environment);

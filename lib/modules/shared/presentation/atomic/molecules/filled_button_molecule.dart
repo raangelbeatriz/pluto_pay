@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plutus_pay/modules/shared/constants/app_colors.dart';
+import '../../../constants/app_colors.dart';
 
 class FilledButtonMolecule extends StatefulWidget {
   const FilledButtonMolecule({

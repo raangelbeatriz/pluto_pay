@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:plutus_pay/modules/login/data/datasource/login_datasource_impl.dart';
-import 'package:plutus_pay/modules/login/data/repositories/login_repository_impl.dart';
-import 'package:plutus_pay/modules/login/domain/usecases/login_usecase_impl.dart';
-import 'package:plutus_pay/modules/login/presentation/cubits/login_cubit.dart';
-import 'package:plutus_pay/modules/login/presentation/pages/login_page.dart';
-import 'package:plutus_pay/modules/shared/app_module.dart';
+
+import '../shared/app_module.dart';
+import 'data/datasource/login_datasource_impl.dart';
+import 'data/repositories/login_repository_impl.dart';
+import 'domain/usecases/login_usecase_impl.dart';
+import 'presentation/cubits/login_cubit.dart';
+import 'presentation/pages/login_page.dart';
 
 class LoginModule extends Module {
   static const String moduleName = '/login';

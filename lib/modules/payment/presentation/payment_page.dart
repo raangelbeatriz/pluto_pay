@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plutus_pay/modules/payment/payment_module.dart';
+import '../payment_module.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});

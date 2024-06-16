@@ -1,4 +1,4 @@
-import 'package:plutus_pay/modules/shared/configs/enviroment.dart';
+import 'enviroment.dart';
 
 class MockEnvironment implements Environment {
   @override

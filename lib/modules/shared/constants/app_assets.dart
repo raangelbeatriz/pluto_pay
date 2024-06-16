@@ -1,4 +1,4 @@
-import 'package:plutus_pay/modules/shared/configs/core_assets.dart';
+import '../configs/core_assets.dart';
 
 class AppAssets {
   const AppAssets._();

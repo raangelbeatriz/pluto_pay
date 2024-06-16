@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:plutus_pay/modules/login/login_module.dart';
-import 'package:plutus_pay/modules/login/presentation/atomic/templates/login_template.dart';
-import 'package:plutus_pay/modules/login/presentation/cubits/login_cubit.dart';
+import '../../login_module.dart';
+import '../atomic/templates/login_template.dart';
+import '../cubits/login_cubit.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
   static const String routeName = '/login-page';
   static const String routePath = LoginModule.moduleName + routeName;
-  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();

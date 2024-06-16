@@ -1,4 +1,4 @@
-import 'package:plutus_pay/modules/shared/data/dio/dio_client.dart';
+import 'dio_client.dart';
 
 class DioClientImpl extends DioClient {
   DioClientImpl({

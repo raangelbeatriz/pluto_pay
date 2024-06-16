@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:plutus_pay/modules/login/data/datasource/login_datasource.dart';
-import 'package:plutus_pay/modules/login/domain/entities/user.dart';
-import 'package:plutus_pay/modules/login/domain/repositories/login_repository.dart';
-import 'package:plutus_pay/modules/shared/data/errors/failure.dart';
-import 'package:plutus_pay/modules/shared/typedef/future_result.dart';
+
+import '../../../shared/data/errors/failure.dart';
+import '../../../shared/typedef/future_result.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repositories/login_repository.dart';
+import '../datasource/login_datasource.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   const LoginRepositoryImpl({required this.datasource});

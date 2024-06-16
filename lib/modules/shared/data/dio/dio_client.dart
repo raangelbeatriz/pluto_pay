@@ -1,16 +1,12 @@
 import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:plutus_pay/modules/shared/data/app_network.dart';
-import 'package:plutus_pay/modules/shared/data/mock/mock_interceptor.dart';
 
 import '../../configs/enviroment.dart';
+import '../app_network.dart';
+import '../mock/mock_interceptor.dart';
 
 abstract class DioClient {
-  final Environment environment;
-  final AppNetwork appNetwork;
-  final MockInterceptor mockInterceptor;
-  late Dio _dio;
 
   DioClient({
     required this.environment,
@@ -38,6 +34,10 @@ abstract class DioClient {
       );
     }
   }
+  final Environment environment;
+  final AppNetwork appNetwork;
+  final MockInterceptor mockInterceptor;
+  late Dio _dio;
 
   Future<Response> get(
     String url, {

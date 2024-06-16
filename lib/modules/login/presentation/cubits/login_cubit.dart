@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plutus_pay/modules/shared/shared_navigator.dart';
-import 'package:plutus_pay/modules/shared/utils/status.dart';
+import '../../../shared/shared_navigator.dart';
+import '../../../shared/utils/status.dart';
 
 import '../../domain/usecases/login_usecase.dart';
 

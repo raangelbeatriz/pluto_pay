@@ -1,5 +1,5 @@
-import 'package:plutus_pay/modules/shared/configs/enviroment.dart';
-import 'package:plutus_pay/modules/shared/data/app_network.dart';
+import '../configs/enviroment.dart';
+import 'app_network.dart';
 
 class AppNetworkImpl implements AppNetwork {
   const AppNetworkImpl({required this.environment});

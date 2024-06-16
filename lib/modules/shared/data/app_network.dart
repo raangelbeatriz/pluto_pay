@@ -1,4 +1,4 @@
-import 'package:plutus_pay/modules/shared/configs/enviroment.dart';
+import '../configs/enviroment.dart';
 
 abstract class AppNetwork {
   AppNetwork({

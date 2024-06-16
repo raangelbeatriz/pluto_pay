@@ -4,11 +4,11 @@ import 'mock_response.dart';
 import 'mock_server.dart';
 
 class MockInterceptor extends Interceptor {
-  final List<MockServer> mockServer;
 
   MockInterceptor({
     required this.mockServer,
   });
+  final List<MockServer> mockServer;
 
   @override
   Future onRequest(
