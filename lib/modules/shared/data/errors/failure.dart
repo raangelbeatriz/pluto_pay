@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 class CustomError implements Exception {
@@ -20,4 +21,24 @@ class Failure extends Equatable {
         exception,
         data,
       ];
+
+  getMessage() {
+    final error = exception;
+
+    if (error is DioException) {
+      switch (error.type) {
+        case DioExceptionType.badResponse:
+          final data = error.response?.data;
+
+          if (data is Map && data.isNotEmpty) {
+            final message = data['message'];
+            if (message is String && message.isNotEmpty) return message;
+          }
+
+        default:
+          return 'Não foi possível completar sua requisição, tente mais tarde';
+      }
+    }
+    if (error is CustomError) return error.message;
+  }
 }

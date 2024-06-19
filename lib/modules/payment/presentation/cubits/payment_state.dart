@@ -3,7 +3,7 @@ part of 'payment_cubit.dart';
 class PaymentState extends Equatable {
   const PaymentState({
     this.getPaymentsDetailsStatus = Status.initial,
-    this.getCardsStatus = Status.initial,
+    this.getLastUsedCardStatus = Status.initial,
     this.getDeviceIdStatus = Status.initial,
     this.getUserHasFraudStatus = Status.initial,
     this.paymentDetails,
@@ -12,13 +12,12 @@ class PaymentState extends Equatable {
     this.selectedCard,
     required this.user,
     this.deviceId,
-    this.detectFraudLocallyStatus = Status.initial,
     this.hasFraud,
     this.message,
   });
 
   final Status getPaymentsDetailsStatus;
-  final Status getCardsStatus;
+  final Status getLastUsedCardStatus;
   final PaymentDetails? paymentDetails;
   final Failure? failure;
   final List<SimpleCard> registeredCards;
@@ -26,17 +25,19 @@ class PaymentState extends Equatable {
   final User user;
   final Status getDeviceIdStatus;
   final String? deviceId;
-  final Status? getUserHasFraudStatus;
-  final Status? detectFraudLocallyStatus;
+  final Status getUserHasFraudStatus;
   final bool? hasFraud;
   final CustomMessage? message;
 
-  bool get isScreenLoading => getCardsStatus.isLoading || getPaymentsDetailsStatus.isLoading;
+  bool get isScreenLoading => getLastUsedCardStatus.isLoading || getPaymentsDetailsStatus.isLoading;
+
+  bool get screenHasCriticalFailure =>
+      getPaymentsDetailsStatus.isFailure || getLastUsedCardStatus.isFailure;
 
   @override
   List<Object?> get props => [
         getPaymentsDetailsStatus,
-        getCardsStatus,
+        getLastUsedCardStatus,
         paymentDetails,
         failure,
         registeredCards,
@@ -45,14 +46,13 @@ class PaymentState extends Equatable {
         getDeviceIdStatus,
         deviceId,
         getUserHasFraudStatus,
-        detectFraudLocallyStatus,
         hasFraud,
         message,
       ];
 
   PaymentState copyWith({
     Status? getPaymentDetailsStatus,
-    Status? getCardsStatus,
+    Status? getLastUsedCard,
     PaymentDetails? paymentDetails,
     Failure? failure,
     List<SimpleCard>? registeredCards,
@@ -69,14 +69,13 @@ class PaymentState extends Equatable {
       getPaymentsDetailsStatus: getPaymentDetailsStatus ?? getPaymentsDetailsStatus,
       paymentDetails: paymentDetails ?? this.paymentDetails,
       failure: failure ?? this.failure,
-      getCardsStatus: getCardsStatus ?? this.getCardsStatus,
+      getLastUsedCardStatus: getLastUsedCard ?? getLastUsedCardStatus,
       registeredCards: registeredCards ?? this.registeredCards,
       selectedCard: selectedCard ?? this.selectedCard,
       user: user ?? this.user,
       getDeviceIdStatus: getDeviceIdStatus ?? this.getDeviceIdStatus,
       deviceId: deviceId ?? this.deviceId,
       getUserHasFraudStatus: getUserHasFraudStatus ?? this.getUserHasFraudStatus,
-      detectFraudLocallyStatus: detectFraudLocallyStatus ?? this.detectFraudLocallyStatus,
       hasFraud: hasFraud ?? this.hasFraud,
       message: message ?? this.message,
     );

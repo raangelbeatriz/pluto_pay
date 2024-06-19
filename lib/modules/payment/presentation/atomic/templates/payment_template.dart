@@ -14,6 +14,7 @@ class PaymentTemplate extends StatelessWidget {
     required this.amount,
     required this.onChangeCardTap,
     this.selectedCard,
+    required this.isPayButtonLoading,
   });
 
   final VoidCallback onPayTap;
@@ -21,16 +22,15 @@ class PaymentTemplate extends StatelessWidget {
   final String storeName;
   final double amount;
   final SimpleCard? selectedCard;
+  final bool isPayButtonLoading;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Pagamento',
-          style: AppTextStyles.montserratBold16,
         ),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -106,6 +106,7 @@ class PaymentTemplate extends StatelessWidget {
             const Gap(24),
             FilledButtonMolecule(
               onTap: onPayTap,
+              isLoading: isPayButtonLoading,
               text: 'Pagar',
             ),
           ],

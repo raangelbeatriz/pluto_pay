@@ -46,14 +46,11 @@ class PaymentCubit extends Cubit<PaymentState> {
   void onInit() {
     getPaymentDetails();
     getLastUsedCard();
-    getUserHasFraud();
     getDeviceId();
   }
 
   Future<void> getPaymentDetails() async {
-    emit(
-      state.copyWith(getPaymentDetailsStatus: Status.loading),
-    );
+    emit(state.copyWith(getPaymentDetailsStatus: Status.loading));
 
     final result = await getPaymentDetailsUsecase.getPaymentDetails(url: '');
 
@@ -78,7 +75,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   }
 
   Future<void> getLastUsedCard() async {
-    emit(state.copyWith(getCardsStatus: Status.loading));
+    emit(state.copyWith(getLastUsedCard: Status.loading));
 
     final result = await getLastUsedCardUsecase.getLastUsedCard();
 
@@ -86,7 +83,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       (failure) {
         emit(
           state.copyWith(
-            getCardsStatus: Status.failure,
+            getLastUsedCard: Status.failure,
             failure: failure,
           ),
         );
@@ -94,7 +91,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       (card) {
         emit(
           state.copyWith(
-            getCardsStatus: Status.success,
+            getLastUsedCard: Status.success,
             selectedCard: card,
           ),
         );
@@ -135,6 +132,8 @@ class PaymentCubit extends Cubit<PaymentState> {
   Future<void> getUserHasFraud() async {
     emit(state.copyWith(getUserHasFraudStatus: Status.loading));
 
+    await Future.delayed(const Duration(seconds: 3));
+
     final result = await getUserHasFraudUsecase.getUserHasFraudUsecase();
 
     result.fold(
@@ -149,21 +148,21 @@ class PaymentCubit extends Cubit<PaymentState> {
       (hasFraud) {
         emit(
           state.copyWith(
-            getUserHasFraudStatus: Status.success,
             hasFraud: hasFraud,
+            getUserHasFraudStatus: Status.success,
           ),
         );
+
+        detectRiskyOperation();
       },
     );
   }
 
-  Future<void> onPayTap() async {
-    detectRiskyOperation();
+  void onPayTap() {
+    getUserHasFraud();
   }
 
   Future<void> detectRiskyOperation() async {
-    emit(state.copyWith(detectFraudLocallyStatus: Status.loading));
-
     final transaction = Transaction(
       cardNumber: state.selectedCard?.cardNumber ?? '',
       transactionDate: DateTime.now(),
