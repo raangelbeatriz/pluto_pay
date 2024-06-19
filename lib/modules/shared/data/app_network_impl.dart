@@ -15,4 +15,10 @@ class AppNetworkImpl implements AppNetwork {
   String get getPaymentsDetails => '/get-payments-details';
 
   String get getCards => '/get-register-cards';
+
+  String get registerCard => '/register-card';
+
+  String get getLastUsedCard => '/get-last-used-card';
+
+  String get getUserHasFraud => '/get-user-has-fraud';
 }

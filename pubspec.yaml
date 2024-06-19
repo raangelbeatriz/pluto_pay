@@ -22,6 +22,10 @@ dependencies:
   gap: ^3.0.1
   flutter_native_splash: ^2.4.0
   awesome_dio_interceptor: ^1.2.0
+  credit_card_type_detector: ^3.0.0
+  mask_text_input_formatter: ^2.9.0
+  top_snackbar_flutter: ^3.1.0
+  device_info_plus: ^10.1.0
 
 dev_dependencies:
   flutter_test:

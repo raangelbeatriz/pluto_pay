@@ -1,12 +1,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import '../payment/payment_module.dart';
+
+import '../login/domain/entities/user.dart';
+import '../payment/presentation/pages/payment_page.dart';
 
 class SharedNavigator {
   const SharedNavigator();
 
-  void openPaymentModule() {
+  void openPaymentModule(User user) {
     Modular.to.navigate(
-      PaymentModule.moduleName,
+      PaymentPage.routePath,
+      arguments: user,
     );
   }
 }

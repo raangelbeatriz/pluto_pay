@@ -1,12 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../login/domain/entities/user.dart';
 import '../../../shared/data/errors/failure.dart';
+import '../../../shared/domain/usecases/get_device_id_usecase.dart';
+import '../../../shared/presentation/entities/custom_message.dart';
+import '../../../shared/presentation/entities/message_types.dart';
 import '../../../shared/utils/status.dart';
 import '../../domain/entities/payment_details.dart';
 import '../../domain/entities/simple_card.dart';
+import '../../domain/entities/transaction.dart';
+import '../../domain/usecases/detect_fraud_locally_usecase.dart';
 import '../../domain/usecases/get_cards_usecase.dart';
+import '../../domain/usecases/get_last_used_card_usecase.dart';
 import '../../domain/usecases/get_payment_details.dart';
+import '../../domain/usecases/get_user_has_fraud_usecase.dart';
+import '../../payment_navigator.dart';
 
 part 'payment_state.dart';
 
@@ -14,14 +23,31 @@ class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit({
     required this.getPaymentDetailsUsecase,
     required this.getCardsUsecase,
-  }) : super(const PaymentState());
+    required this.paymentNavigator,
+    required this.getLastUsedCardUsecase,
+    required User user,
+    required this.getDeviceIdUsecase,
+    required this.getUserHasFraudUsecase,
+    required this.detectFraudLocallyUseCase,
+  }) : super(
+          PaymentState(
+            user: user,
+          ),
+        );
 
   final GetPaymentDetailsUsecase getPaymentDetailsUsecase;
   final GetCardsUsecase getCardsUsecase;
+  final PaymentNavigator paymentNavigator;
+  final GetLastUsedCardUsecase getLastUsedCardUsecase;
+  final GetDeviceIdUsecase getDeviceIdUsecase;
+  final GetUserHasFraudUsecase getUserHasFraudUsecase;
+  final DetectFraudLocallyUseCase detectFraudLocallyUseCase;
 
   void onInit() {
     getPaymentDetails();
-    getCards();
+    getLastUsedCard();
+    getUserHasFraud();
+    getDeviceId();
   }
 
   Future<void> getPaymentDetails() async {
@@ -29,11 +55,9 @@ class PaymentCubit extends Cubit<PaymentState> {
       state.copyWith(getPaymentDetailsStatus: Status.loading),
     );
 
-    await Future.delayed(const Duration(seconds: 5));
+    final result = await getPaymentDetailsUsecase.getPaymentDetails(url: '');
 
-    final response = await getPaymentDetailsUsecase.getPaymentDetails(url: '');
-
-    response.fold(
+    result.fold(
       (failure) {
         emit(
           state.copyWith(
@@ -53,12 +77,12 @@ class PaymentCubit extends Cubit<PaymentState> {
     );
   }
 
-  Future<void> getCards() async {
+  Future<void> getLastUsedCard() async {
     emit(state.copyWith(getCardsStatus: Status.loading));
 
-    final response = await getCardsUsecase.getRegisterCardsUsecase();
+    final result = await getLastUsedCardUsecase.getLastUsedCard();
 
-    response.fold(
+    result.fold(
       (failure) {
         emit(
           state.copyWith(
@@ -67,16 +91,109 @@ class PaymentCubit extends Cubit<PaymentState> {
           ),
         );
       },
-      (cards) {
+      (card) {
         emit(
           state.copyWith(
             getCardsStatus: Status.success,
-            registeredCards: cards,
+            selectedCard: card,
           ),
         );
       },
     );
   }
 
-  Future<void> onTapPay() async {}
+  Future<void> onChangeCardTap() async {
+    final result = await paymentNavigator.openSelectCardPage(state.selectedCard!);
+    emit(state.copyWith(selectedCard: result));
+  }
+
+  Future<void> getDeviceId() async {
+    emit(state.copyWith(getDeviceIdStatus: Status.loading));
+
+    final result = await getDeviceIdUsecase.getDeviceId();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            getDeviceIdStatus: Status.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (deviceId) {
+        emit(
+          state.copyWith(
+            getDeviceIdStatus: Status.success,
+            deviceId: deviceId,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> getUserHasFraud() async {
+    emit(state.copyWith(getUserHasFraudStatus: Status.loading));
+
+    final result = await getUserHasFraudUsecase.getUserHasFraudUsecase();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            getUserHasFraudStatus: Status.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (hasFraud) {
+        emit(
+          state.copyWith(
+            getUserHasFraudStatus: Status.success,
+            hasFraud: hasFraud,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> onPayTap() async {
+    detectRiskyOperation();
+  }
+
+  Future<void> detectRiskyOperation() async {
+    emit(state.copyWith(detectFraudLocallyStatus: Status.loading));
+
+    final transaction = Transaction(
+      cardNumber: state.selectedCard?.cardNumber ?? '',
+      transactionDate: DateTime.now(),
+      amount: state.paymentDetails?.amount ?? 0,
+      deviceId: state.deviceId,
+    );
+
+    final result = detectFraudLocallyUseCase.hasPossibleFraud(
+      transaction: transaction,
+      hasFraud: state.hasFraud ?? true,
+    );
+
+    if (result) {
+      emit(
+        state.copyWith(
+          message: CustomMessage(
+            messageType: MessageType.error,
+            message: 'Sua transação não pode ser concluída no momento',
+          ),
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          message: CustomMessage(
+            messageType: MessageType.success,
+            message: 'Sua transação foi aprovada',
+          ),
+        ),
+      );
+    }
+  }
 }

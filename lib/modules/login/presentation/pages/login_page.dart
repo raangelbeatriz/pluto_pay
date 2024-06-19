@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../shared/presentation/atomic/molecules/messages_molecule.dart';
 import '../../../shared/utils/status.dart';
 import '../../login_module.dart';
 import '../atomic/templates/login_template.dart';
@@ -16,13 +17,19 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with Messages {
   final cubit = Modular.get<LoginCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status.isFailure) {
+          showError('Não foi possível fazer o login');
+        }
+      },
       bloc: cubit,
+      listenWhen: (previous, current) => previous != current,
       builder: (context, state) {
         return LoginTemplate(
           onContinueTap: cubit.onContinueTap,

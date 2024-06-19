@@ -28,7 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
     }, (user) {
       state.copyWith(status: Status.success);
 
-      sharedNavigator.openPaymentModule();
+      sharedNavigator.openPaymentModule(user);
     });
   }
 }

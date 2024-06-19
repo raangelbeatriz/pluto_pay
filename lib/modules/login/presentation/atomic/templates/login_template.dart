@@ -34,6 +34,7 @@ class LoginTemplate extends StatelessWidget {
                 color: AppColors.darkGrey,
               ),
             ),
+            const Gap(24),
             const TextFieldMolecule(
               label: 'Login',
             ),

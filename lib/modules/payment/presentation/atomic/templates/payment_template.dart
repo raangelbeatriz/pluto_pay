@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import '../../../../shared/constants/app_colors.dart';
 import '../../../../shared/constants/app_text_styles.dart';
 import '../../../../shared/presentation/atomic/molecules/filled_button_molecule.dart';
+import '../../../domain/entities/simple_card.dart';
 
 class PaymentTemplate extends StatelessWidget {
   const PaymentTemplate({
@@ -12,20 +13,21 @@ class PaymentTemplate extends StatelessWidget {
     required this.storeName,
     required this.amount,
     required this.onChangeCardTap,
+    this.selectedCard,
   });
 
   final VoidCallback onPayTap;
   final VoidCallback onChangeCardTap;
   final String storeName;
   final double amount;
+  final SimpleCard? selectedCard;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.greyBackground,
       appBar: AppBar(
         title: Text(
-          'Payment',
+          'Pagamento',
           style: AppTextStyles.montserratBold16,
         ),
         centerTitle: true,
@@ -89,7 +91,7 @@ class PaymentTemplate extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '***3467',
+                        selectedCard?.cardNumber ?? '',
                         style: AppTextStyles.montserratRegular14,
                       ),
                       TextButton(
@@ -102,12 +104,9 @@ class PaymentTemplate extends StatelessWidget {
               ),
             ),
             const Gap(24),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButtonMolecule(
-                onTap: onPayTap,
-                text: 'Pagar',
-              ),
+            FilledButtonMolecule(
+              onTap: onPayTap,
+              text: 'Pagar',
             ),
           ],
         ),
