@@ -3,14 +3,15 @@ import 'detect_fraud_locally_usecase.dart';
 
 class DetectFraudLocallyUsecaseImpl implements DetectFraudLocallyUseCase {
   final peakHourFraudStart = 19;
-  final peakHourFraudFinish = 3;
+  final peakHourFraudFinish = 1;
   final suspectValue = 2000;
-  @override
-  bool hasPossibleFraud({required Transaction transaction, required bool hasFraud}) {
-    if (hasFraud) return true;
 
-    if (_isPeakHour(transaction)) {
-      if (_hasSuspectValue(transaction)) return true;
+  @override
+  bool hasPossibleFraud({required DetectFraudLocallyUseCaseParams params}) {
+    if (params.hasFraud) return true;
+
+    if (_isPeakHour(params.transaction)) {
+      if (_hasSuspectValue(params.transaction)) return true;
     }
 
     return false;
@@ -18,7 +19,11 @@ class DetectFraudLocallyUsecaseImpl implements DetectFraudLocallyUseCase {
 
   bool _isPeakHour(Transaction transaction) {
     final hour = transaction.transactionDate.hour;
-    return hour >= peakHourFraudStart && hour <= peakHourFraudFinish;
+    if (peakHourFraudFinish < peakHourFraudStart) {
+      return hour >= peakHourFraudStart || hour < peakHourFraudFinish;
+    } else {
+      return hour >= peakHourFraudStart && hour < peakHourFraudFinish;
+    }
   }
 
   bool _hasSuspectValue(Transaction transaction) {

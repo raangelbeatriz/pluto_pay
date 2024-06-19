@@ -171,8 +171,8 @@ class PaymentCubit extends Cubit<PaymentState> {
     );
 
     final result = detectFraudLocallyUseCase.hasPossibleFraud(
-      transaction: transaction,
-      hasFraud: state.hasFraud ?? true,
+      params: DetectFraudLocallyUseCaseParams(
+          transaction: transaction, hasFraud: state.hasFraud ?? true),
     );
 
     if (result) {
