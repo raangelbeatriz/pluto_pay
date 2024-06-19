@@ -75,7 +75,7 @@ The customer provides the payment information at the store, either online or in 
 - **Sub-Acquirer:** A sub-acquirer is a third party that provides payment processing services to merchants, typically working under an agreement with a primary acquirer. They often have clients who are smaller merchants who might not have direct access to acquirers.
 - **Payment Gateway:** A payment gateway is a technology provider that facilitates the secure transmission of transaction data from the merchant to the acquirer.
 
-When a Sub-Acquier it acts like an intermediate to the merchant and the accquier so the money and information flow and money flow sligthy changes.
+When a sub-acquirer is involved, it acts as an intermediary between the merchant and the acquirer, slightly altering the flow of money and information.
 
 ### Chargeback analyzes
 To make this app I had to understand how chargebacks works and analyze some data. Upon analyzing the data, I discovered some suspicious behaviors, such as a higher risk of fraud occurring late in the evenings, particularly between 7 PM and 1 AM. I also found that during these hours, high-value transactions are more likely to be fraudulent.
