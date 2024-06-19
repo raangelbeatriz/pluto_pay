@@ -27,7 +27,8 @@ class ErrorTemplate extends StatelessWidget {
                 style: AppTextStyles.montserratMedium16,
               ),
               const Gap(24),
-              if (retryButton != null) FilledButtonMolecule(onTap: () {}, text: 'Tentar Novamente'),
+              if (retryButton != null)
+                FilledButtonMolecule(onTap: retryButton!, text: 'Tentar Novamente'),
             ],
           ),
         ),

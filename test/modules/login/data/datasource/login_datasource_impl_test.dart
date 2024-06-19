@@ -20,7 +20,7 @@ void main() {
       network: appNetworkImplMock,
     );
   });
-  group('When SignIn is called', () {
+  group('When [signIn] is called', () {
     dioCallbackMock() => dioClientMock.post(
           any(),
           data: any(named: 'data'),
