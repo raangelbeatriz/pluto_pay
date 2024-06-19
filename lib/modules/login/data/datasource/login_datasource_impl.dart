@@ -1,6 +1,7 @@
 import '../../../shared/data/app_network_impl.dart';
 import '../../../shared/data/dio/dio_client.dart';
 import '../../domain/entities/user.dart';
+import '../../domain/usecases/login_usecase.dart';
 import '../models/user_model.dart';
 import 'login_datasource.dart';
 
@@ -13,12 +14,12 @@ class LoginDatasourceImpl implements LoginDatasource {
   final AppNetworkImpl network;
 
   @override
-  Future<User> signIn({required String email, required String password}) async {
+  Future<User> signIn({required LoginUsecaseParams params}) async {
     final response = await dio.post(
       network.signIn,
       data: {
-        'email': email,
-        'password': password,
+        'email': params.email,
+        'password': params.password,
       },
     );
 

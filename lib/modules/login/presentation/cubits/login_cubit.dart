@@ -20,7 +20,12 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> onContinueTap() async {
     emit(state.copyWith(status: Status.loading));
 
-    final result = await loginUsecase.signIn(email: '', password: '');
+    final result = await loginUsecase.signIn(
+      params: LoginUsecaseParams(
+        email: state.email!,
+        password: state.password!,
+      ),
+    );
 
     result.fold((failure) {
       emit(
