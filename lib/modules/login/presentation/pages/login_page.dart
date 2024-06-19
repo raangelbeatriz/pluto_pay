@@ -34,6 +34,9 @@ class _LoginPageState extends State<LoginPage> with Messages {
         return LoginTemplate(
           onContinueTap: cubit.onContinueTap,
           isLoading: state.status.isLoading,
+          onChangedPassword: cubit.onChangePassword,
+          onChangedEmail: cubit.onChangeEmail,
+          isButtonEnable: state.isButtonEnable,
         );
       },
     );

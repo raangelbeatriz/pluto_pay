@@ -9,10 +9,20 @@ import '../../../../shared/presentation/atomic/molecules/filled_button_molecule.
 import '../../../../shared/presentation/atomic/molecules/textfields/text_field_molecule.dart';
 
 class LoginTemplate extends StatelessWidget {
-  const LoginTemplate({super.key, required this.onContinueTap, required this.isLoading});
+  const LoginTemplate({
+    super.key,
+    required this.onContinueTap,
+    required this.isLoading,
+    required this.onChangedPassword,
+    required this.onChangedEmail,
+    required this.isButtonEnable,
+  });
 
   final VoidCallback onContinueTap;
   final bool isLoading;
+  final Function(String) onChangedPassword;
+  final Function(String) onChangedEmail;
+  final bool isButtonEnable;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +45,16 @@ class LoginTemplate extends StatelessWidget {
               ),
             ),
             const Gap(24),
-            const TextFieldMolecule(
+            TextFieldMolecule(
               label: 'Login',
+              onChanged: (value) => onChangedEmail(value),
             ),
             const Gap(12),
-            const TextFieldMolecule(
+            TextFieldMolecule(
               label: 'Senha',
-              prefixIcon: Icon(
+              onChanged: (value) => onChangedPassword(value),
+              obscureText: true,
+              prefixIcon: const Icon(
                 Icons.lock_clock_outlined,
               ),
             ),
@@ -52,7 +65,7 @@ class LoginTemplate extends StatelessWidget {
                 onTap: onContinueTap,
                 isLoading: isLoading,
                 text: 'Comprar',
-                isEnabled: true,
+                isEnabled: isButtonEnable,
               ),
             ),
           ],

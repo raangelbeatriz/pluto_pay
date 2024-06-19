@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../shared/shared_navigator.dart';
 import '../../../shared/utils/status.dart';
+import '../../../shared/utils/validators.dart';
 import '../../domain/usecases/login_usecase.dart';
 
 part 'login_state.dart';
@@ -30,5 +31,13 @@ class LoginCubit extends Cubit<LoginState> {
 
       sharedNavigator.openPaymentModule(user);
     });
+  }
+
+  void onChangeEmail(String email) {
+    emit(state.copyWith(email: email));
+  }
+
+  void onChangePassword(String password) {
+    emit(state.copyWith(password: password));
   }
 }
