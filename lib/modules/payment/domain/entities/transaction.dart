@@ -1,5 +1,5 @@
 class Transaction {
-  Transaction({
+  const Transaction({
     required this.cardNumber,
     required this.transactionDate,
     required this.amount,

@@ -1,7 +1,7 @@
 import '../../../shared/utils/validators.dart';
 
 class Card {
-  Card({
+  const Card({
     required this.cardNumber,
     required this.validateDate,
     required this.cvv,

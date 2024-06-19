@@ -46,7 +46,7 @@ class LoginTemplate extends StatelessWidget {
             ),
             const Gap(24),
             TextFieldMolecule(
-              label: 'Login',
+              label: 'Email',
               onChanged: (value) => onChangedEmail(value),
             ),
             const Gap(12),
@@ -64,7 +64,7 @@ class LoginTemplate extends StatelessWidget {
               child: FilledButtonMolecule(
                 onTap: onContinueTap,
                 isLoading: isLoading,
-                text: 'Comprar',
+                text: 'Logar',
                 isEnabled: isButtonEnable,
               ),
             ),

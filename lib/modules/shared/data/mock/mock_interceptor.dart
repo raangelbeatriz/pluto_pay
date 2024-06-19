@@ -4,7 +4,6 @@ import 'mock_response.dart';
 import 'mock_server.dart';
 
 class MockInterceptor extends Interceptor {
-
   MockInterceptor({
     required this.mockServer,
   });
@@ -25,7 +24,7 @@ class MockInterceptor extends Interceptor {
         _rejectRequest(
           options,
           handler,
-          message: 'The endpoint $path doesn\'t exist on mock_server.dart',
+          message: 'The endpoint $path doesn\'t exist on mock server',
         );
         return;
       }

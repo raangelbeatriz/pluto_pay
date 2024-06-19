@@ -9,9 +9,6 @@ class MockEnvironment implements Environment {
 
   @override
   bool get isMock => true;
-
-  @override
-  String? get certificatePath => null;
 }
 
 class DevEnvironment implements Environment {
@@ -19,11 +16,8 @@ class DevEnvironment implements Environment {
   String suffix = 'dev';
 
   @override
-  String baseUrl = 'https://dog.ceo/api/breeds/image/random';
+  String baseUrl = '';
 
   @override
   bool get isMock => false;
-
-  @override
-  String? get certificatePath => null;
 }
