@@ -1,7 +1,7 @@
 # Pluto Pay
 
 ## ✨ About
-Pluto App is a project whose goal was to develop a payment link interface, where users can perform payments with their own cards. The idea was to develop a simple app that could also detect frauds locally.
+Pluto Pay is a project whose goal was to develop a payment link interface, where users can perform payments with their own cards. The idea was to develop a simple app that could also detect frauds locally.
 
 ### 💰 Fun Fact
 Pluto  is the Greek god of abundance and wealth, so it makes sense to have a payment app with his name, at least I think so.
@@ -26,7 +26,7 @@ Pluto  is the Greek god of abundance and wealth, so it makes sense to have a pay
 - Add real validation to the textfields, for now it only checks if the fields are empty
 - Improvement of the select and register card so the user can see an image of the card`s brand
 - Make new screens where the user can check and sort old transactions
-- Add more tests especially cubit ones
+- Add more tests, especially cubit ones
 - Connect to a real backend
 
 
@@ -36,7 +36,7 @@ For testing, I used Mocktail, and try to test a few key layers, such as the data
 ## 🚀 How to use
 - Clone this project
 ```sh
-git clone https://github.com/raangelbeatriz/movie_clean_arch
+git clone https://github.com/raangelbeatriz/pluto_pay
 ```
 - Open the project and run
 ```sh
@@ -63,7 +63,7 @@ The customer initiates the payment using a credit card to pay for a service from
 
 To summarize: 
 
-** Customer → Merchant → Acquier Bank → Card Network → Issuer **
+**Customer → Merchant → Acquier Bank → Card Network → Issuer**
 
 And then the the information makes the reverse path until the merchant is paid.
 
